@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}
+  {% if action == 'create' %}Nuevo usuario{% else %}Editar usuario{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-7">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 p-md-5">
+        <div class="d-flex align-items-center mb-4">
+          <a href="{{ url_for('users.index') }}" class="btn btn-light btn-sm me-3">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          <div>
+            <h2 class="h4 fw-bold mb-1">
+              {% if action == 'create' %}
+                <i class="bi bi-person-plus text-primary me-2"></i>Nuevo usuario
+              {% else %}
+                <i class="bi bi-person-gear text-primary me-2"></i>Editar usuario
+              {% endif %}
+            </h2>
+            <p class="text-muted small mb-0">Completa los datos del usuario.</p>
+          </div>
+        </div>
+
+        <form method="POST"
+              action="{% if action == 'create' %}{{ url_for('users.create') }}{% else %}{{ url_for('users.edit', user_id=user_id) }}{% endif %}"
+              novalidate>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="nombre" class="form-label fw-semibold">Nombre completo</label>
+              <input type="text" class="form-control" id="nombre" name="nombre"
+                     value="{{ (user.nombre if user else '') or '' }}" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="username" class="form-label fw-semibold">Nombre de usuario</label>
+              <div class="input-group">
+                <span class="input-group-text text-muted">@</span>
+                <input type="text" class="form-control" id="username" name="username"
+                       value="{{ (user.username if user else '') or '' }}" required>
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="email" class="form-label fw-semibold">Email</label>
+              <input type="email" class="form-control" id="email" name="email"
+                     value="{{ (user.email if user else '') or '' }}" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="password" class="form-label fw-semibold">
+                Contraseña
+                {% if action == 'edit' %}
+                  <small class="text-muted fw-normal">(dejar vacío para no cambiar)</small>
+                {% endif %}
+              </label>
+              <input type="password" class="form-control" id="password" name="password"
+                     {% if action == 'create' %}required{% endif %}
+                     placeholder="{% if action == 'edit' %}••••••••{% endif %}">
+            </div>
+            <div class="col-sm-6">
+              <label for="rol" class="form-label fw-semibold">Rol</label>
+              <select class="form-select" id="rol" name="rol" required>
+                <option value="usuario" {% if (user and user.rol == 'usuario') or not user %}selected{% endif %}>
+                  👤 Usuario (solo lectura)
+                </option>
+                <option value="admin" {% if user and user.rol == 'admin' %}selected{% endif %}>
+                  🛡 Admin (acceso total)
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <a href="{{ url_for('users.index') }}" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary px-4">
+              <i class="bi bi-check2 me-1"></i>
+              {% if action == 'create' %}Crear usuario{% else %}Guardar cambios{% endif %}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

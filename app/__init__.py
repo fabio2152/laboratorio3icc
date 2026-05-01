@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import Config
@@ -19,8 +19,14 @@ def create_app():
 
     from app.controllers.auth_controller import auth_bp
     from app.controllers.product_controller import product_bp
+    from app.controllers.user_controller import user_bp
     app.register_blueprint(auth_bp)
     app.register_blueprint(product_bp)
+    app.register_blueprint(user_bp)
+
+    @app.errorhandler(403)
+    def forbidden(e):
+        return render_template("403.html"), 403
 
     with app.app_context():
         db.create_all()
@@ -39,7 +45,6 @@ def _seed_initial_data():
     from app.models.product import Product
     from app.models.user import User
 
-    # Productos de ejemplo
     if Product.query.count() == 0:
         db.session.add_all([
             Product(nombre="Teclado mecanico", descripcion="Switches rojos, RGB", precio=199.90, stock=25),
@@ -47,10 +52,11 @@ def _seed_initial_data():
             Product(nombre='Monitor 27"', descripcion="IPS 144Hz QHD", precio=1299.00, stock=10),
         ])
 
-    # Usuario admin por defecto (solo si no existe ninguno)
     if User.query.count() == 0:
-        admin = User(username="admin")
+        admin = User(nombre="Administrador", email="admin@tienda.com", username="admin", rol="admin")
         admin.set_password("admin123")
-        db.session.add(admin)
+        viewer = User(nombre="Usuario Demo", email="demo@tienda.com", username="demo", rol="usuario")
+        viewer.set_password("demo123")
+        db.session.add_all([admin, viewer])
 
     db.session.commit()

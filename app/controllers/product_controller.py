@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
 from flask_login import login_required
 from app.services.product_service import ProductService
+from app.utils.decorators import admin_required
 
 product_bp = Blueprint("products", __name__, url_prefix="/")
 service = ProductService()
@@ -15,6 +16,7 @@ def index():
 
 @product_bp.route("/products/new", methods=["GET", "POST"])
 @login_required
+@admin_required
 def create():
     if request.method == "POST":
         try:
@@ -29,11 +31,11 @@ def create():
 
 @product_bp.route("/products/<int:product_id>/edit", methods=["GET", "POST"])
 @login_required
+@admin_required
 def edit(product_id):
     product = service.get_product(product_id)
     if product is None:
         abort(404)
-
     if request.method == "POST":
         try:
             service.update_product(product_id, request.form.to_dict())
@@ -42,12 +44,12 @@ def edit(product_id):
         except ValueError as e:
             flash(str(e), "danger")
             return render_template("form.html", product=request.form, action="edit", product_id=product_id)
-
     return render_template("form.html", product=product, action="edit", product_id=product_id)
 
 
 @product_bp.route("/products/<int:product_id>/delete", methods=["POST"])
 @login_required
+@admin_required
 def delete(product_id):
     if service.delete_product(product_id):
         flash("Producto eliminado.", "success")

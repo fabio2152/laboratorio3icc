@@ -18,7 +18,13 @@
       "Bash(curl -s http://127.0.0.1:5000/login -o /dev/null -w \"Login page  GET /login -> %{http_code} \\(debe ser 200\\)\\\\n\")",
       "Bash(curl -s -X POST http://127.0.0.1:5000/login -d \"username=admin&password=admin123\" -o /dev/null -w \"Login ok    POST /login -> %{http_code} \\(debe ser 302 al panel\\)\\\\n\")",
       "Bash(curl -s -X POST http://127.0.0.1:5000/login -d \"username=admin&password=MALA\" -o /dev/null -w \"Login fail  POST /login -> %{http_code} \\(debe ser 200 con error\\)\\\\n\")",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(curl -s http://127.0.0.1:5000/ -o /dev/null -w \"Sin login -> GET /       : %{http_code}\\\\n\")",
+      "Bash(curl -s http://127.0.0.1:5000/users/ -o /dev/null -w \"Sin login -> GET /users/ : %{http_code}\\\\n\")",
+      "Bash(curl -s -X POST http://127.0.0.1:5000/login -d \"username=admin&password=admin123\" -o /dev/null -w \"Login admin           : %{http_code}\\\\n\")",
+      "Bash(curl -s -X POST http://127.0.0.1:5000/login -d \"username=demo&password=demo123\" -o /dev/null -w \"Login demo \\(usuario\\)  : %{http_code}\\\\n\")"
     ]
   }
 }
