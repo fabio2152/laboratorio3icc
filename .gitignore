@@ -5,9 +5,9 @@ venv/
 # Variables de entorno (contiene credenciales)
 .env
 
-# Base de datos SQLite
-*.db
+# Base de datos SQLite (se incluye tienda.db para revision academica)
 *.sqlite3
+# !tienda.db  ← descomenta si quieres excluirla en produccion
 
 # Python
 __pycache__/
