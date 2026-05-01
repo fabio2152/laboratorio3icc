@@ -1,0 +1,104 @@
+:root {
+  --brand-1: #4f46e5;
+  --brand-2: #7c3aed;
+  --brand-3: #6366f1;
+  --bg: #f5f6fb;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+  color: #1f2937;
+}
+
+.app-navbar {
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  box-shadow: 0 4px 18px rgba(79, 70, 229, 0.25);
+}
+
+.app-navbar .navbar-brand {
+  color: #fff !important;
+  letter-spacing: 0.3px;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+}
+
+.card {
+  border-radius: 14px;
+}
+
+.btn {
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-3));
+  border: none;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(135deg, #4338ca, #6d28d9);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.9rem 1rem;
+}
+
+.table thead th {
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #6b7280;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f9fafe;
+}
+
+.badge.text-bg-primary {
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2)) !important;
+}
+
+.empty-state {
+  border: 1px dashed #d1d5db;
+}
+
+.info-box {
+  background: #f8f9ff;
+  border: 1px solid #eef0fb;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  height: 100%;
+}
+
+.info-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.info-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.form-control:focus,
+.form-control-lg:focus {
+  border-color: var(--brand-3);
+  box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.15);
+}
+
+.alert {
+  border: none;
+  border-radius: 12px;
+}

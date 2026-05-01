@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}
+  {% if action == 'create' %}Nuevo producto{% else %}Editar producto{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 p-md-5">
+        <div class="d-flex align-items-center mb-4">
+          <a href="{{ url_for('products.index') }}" class="btn btn-light btn-sm me-3">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          <div>
+            <h2 class="h4 fw-bold mb-1">
+              {% if action == 'create' %}
+                <i class="bi bi-plus-circle text-primary me-2"></i>Nuevo producto
+              {% else %}
+                <i class="bi bi-pencil-square text-primary me-2"></i>Editar producto
+              {% endif %}
+            </h2>
+            <p class="text-muted small mb-0">Completa los datos del producto.</p>
+          </div>
+        </div>
+
+        <form method="POST"
+              action="{% if action == 'create' %}{{ url_for('products.create') }}{% else %}{{ url_for('products.edit', product_id=product_id) }}{% endif %}"
+              novalidate>
+          <div class="mb-3">
+            <label for="nombre" class="form-label fw-semibold">Nombre</label>
+            <input type="text" class="form-control form-control-lg" id="nombre" name="nombre"
+                   value="{{ (product.nombre if product else '') or '' }}" required maxlength="120">
+          </div>
+
+          <div class="mb-3">
+            <label for="descripcion" class="form-label fw-semibold">Descripcion</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="3">{{ (product.descripcion if product else '') or '' }}</textarea>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="precio" class="form-label fw-semibold">Precio (S/)</label>
+              <input type="number" step="0.01" min="0" class="form-control" id="precio" name="precio"
+                     value="{{ (product.precio if product else '') or '' }}" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="stock" class="form-label fw-semibold">Stock</label>
+              <input type="number" step="1" min="0" class="form-control" id="stock" name="stock"
+                     value="{{ (product.stock if product else '') or '' }}" required>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <a href="{{ url_for('products.index') }}" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary px-4">
+              <i class="bi bi-check2 me-1"></i>
+              {% if action == 'create' %}Guardar{% else %}Actualizar{% endif %}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
