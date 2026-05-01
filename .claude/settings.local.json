@@ -6,7 +6,19 @@
       "Bash(\"C:/Users/USUARIO/Downloads/UTEC/ICC/ICC S6/APP MVC S6/venv/Scripts/python.exe\" -m pip install --quiet -r \"C:/Users/USUARIO/Downloads/UTEC/ICC/ICC S6/APP MVC S6/requirements.txt\")",
       "Bash(\"./venv/Scripts/python.exe\" run.py)",
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://127.0.0.1:5000/)",
-      "Bash(curl -s http://127.0.0.1:5000/)"
+      "Bash(curl -s http://127.0.0.1:5000/)",
+      "Bash(gh repo *)",
+      "Bash(taskkill //F //IM python.exe)",
+      "Bash(\"C:/Users/USUARIO/Downloads/UTEC/ICC/ICC S6/APP MVC S6/venv/Scripts/python.exe\" -m pip install --quiet Flask-Login==0.6.3)",
+      "Bash(curl -s -c /tmp/cookies.txt -o /dev/null -w \"GET /         -> HTTP %{http_code}\\\\n\" http://127.0.0.1:5000/)",
+      "Bash(curl -s -c /tmp/cookies.txt -o /dev/null -w \"GET /login    -> HTTP %{http_code}\\\\n\" http://127.0.0.1:5000/login)",
+      "Bash(curl -s -c /tmp/cookies.txt -b /tmp/cookies.txt -X POST http://127.0.0.1:5000/login -d \"username=admin&password=admin123\" -L -o /tmp/resp.html -w \"POST /login   -> HTTP %{http_code}\\\\n\")",
+      "Read(//tmp/**)",
+      "Bash(curl -s http://127.0.0.1:5000/ -o /dev/null -w \"Sin login   GET /  -> %{http_code} \\(debe ser 302 a login\\)\\\\n\")",
+      "Bash(curl -s http://127.0.0.1:5000/login -o /dev/null -w \"Login page  GET /login -> %{http_code} \\(debe ser 200\\)\\\\n\")",
+      "Bash(curl -s -X POST http://127.0.0.1:5000/login -d \"username=admin&password=admin123\" -o /dev/null -w \"Login ok    POST /login -> %{http_code} \\(debe ser 302 al panel\\)\\\\n\")",
+      "Bash(curl -s -X POST http://127.0.0.1:5000/login -d \"username=admin&password=MALA\" -o /dev/null -w \"Login fail  POST /login -> %{http_code} \\(debe ser 200 con error\\)\\\\n\")",
+      "Bash(git add *)"
     ]
   }
 }
